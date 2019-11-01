@@ -1,0 +1,78 @@
+swagger: "2.0"
+info:
+  description: This is the swagger file that goes with our server code
+  version: "1.0.0"
+  title: Swagger Rest Article
+consumes:
+  - application/json
+produces:
+  - application/json
+
+basePath: /api
+
+# Paths supported by the server application
+paths:
+  /temperature:
+    get:
+      operationId: temperature.read_all
+      tags:
+        - Temperature
+      summary: Read the entire set of temperature, sorted by last name
+      description: Read the entire set of temperature, sorted by last name
+      responses:
+        200:
+          description: Successfully read temperature set operation
+          schema:
+            type: array
+            items:
+              properties:
+                temp:
+                  type: string
+                humidity:
+                  type: string
+                light:
+                  type: string
+                timestamp:
+                  type: string
+                device:
+                  type: string
+                colour:
+                  type: string
+    post:
+      operationId: temperature.create
+      tags:
+        - Temperature
+      summary: Create a record
+      description: Create a new record
+      parameters:
+        - name: temperature
+          in: body
+          description: temperature to create
+          required: True
+          schema:
+              properties:
+                temp:
+                  type: string
+                humidity:
+                  type: string
+                light:
+                  type: string
+                timestamp:
+                  type: string
+                device:
+                  type: string
+      responses:
+        201:
+          description: Successfully created person
+          schema:
+              properties:
+                temp:
+                  type: string
+                humidity:
+                  type: string
+                light:
+                  type: string
+                timestamp:
+                  type: string
+                device:
+                  type: string

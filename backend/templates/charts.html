@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>"Kittiwake"</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0-rc.1/Chart.bundle.js"></script>
+</head>
+
+<body>
+  <center>
+    <div class="container" style="height: 600px; width: 1000px;">
+      <canvas id="tempChart"></canvas>
+    </div>
+    <div class="container" style="height: 600px; width: 1000px;">
+      <canvas id="humChart"></canvas>
+    </div>
+    <div class="container" style="height: 600px; width: 1000px;">
+      <canvas id="lightChart"></canvas>
+    </div>
+
+<script>
+var ctx = document.getElementById("tempChart").getContext("2d");
+
+var myChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: {{ labels | safe }},
+    datasets: [{% for i in t %}
+                {{i | safe}},
+               {%endfor%}]
+
+  },
+  options: {
+    title:{
+	display: true,
+	text: 'Temperature °C'
+	},
+    scales: {
+      xAxes: [{
+        type: 'time',
+        distribution: 'linear'
+      }],
+      yAxes: [{
+                ticks: {
+                    suggestedMin: 0,
+                    suggestedMax: 30
+                },
+             }]
+    }
+  }
+});    
+
+var chx = document.getElementById("humChart").getContext("2d");
+
+var myChart = new Chart(chx, {
+  type: 'line',
+  data: {
+    labels: {{ labels | safe }},
+    datasets: [{% for i in h %}
+                {{i | safe}},
+               {%endfor%}]
+
+  },
+  options: {
+    title:{
+        display: true,
+        text: 'Humidity Percentage'
+        },
+    scales: {
+      xAxes: [{
+        type: 'time',
+        distribution: 'linear'
+      }],
+      yAxes: [{
+                ticks: {
+                    suggestedMin: 50,
+                    suggestedMax: 100
+                },
+             }]
+    }
+  }
+});   
+
+var clx = document.getElementById("lightChart").getContext("2d");
+
+var myChart = new Chart(clx, {
+  type: 'line',
+  data: {
+    labels: {{ labels | safe }},
+    datasets: [{% for i in l %}
+                {{i | safe}},
+               {%endfor%}]
+
+  },
+  options: {
+    title:{
+        display: true,
+        text: 'Light Level'
+        },
+    scales: {
+      xAxes: [{
+        type: 'time',
+        distribution: 'linear'
+      }],
+      yAxes: [{
+                ticks: {
+                    suggestedMin: 0,
+                    suggestedMax: 100
+                },
+             }]
+    }
+  }
+});
+
+
+
+	</script>
+  </center>
+</body>
+</html>
+
+
+
